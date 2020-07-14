@@ -1,0 +1,5 @@
+set_io i_clock     P7
+
+set_io o_led_red   A5
+set_io o_led_green M4
+
