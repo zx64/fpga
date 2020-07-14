@@ -1,15 +1,10 @@
 `default_nettype none
 `define ICEWERX
+`include "2leds.v"
 
 module top(
     input i_clock,
-`ifdef ICEWERX
-    output o_led_red,
-    output o_led_green,
-`else
-    output [3:0] o_led_x,
-    output [7:0] o_led_y,
-`endif
+    `O_2LEDS
 );
     parameter CLOCKBIT = 24;
     reg [31:0] ctr;
@@ -30,13 +25,8 @@ module top(
     );
 
 
-`ifdef ICEWERX
-    assign o_led_red = ctr[CLOCKBIT];
-    assign o_led_green = ctr2[CLOCKBIT];
-`else
-    assign o_led_x = 4'b0111;
-    assign o_led_y = {~ctr[CLOCKBIT], ~ctr2[CLOCKBIT], 6'b111111};
-`endif
+    `W_2LEDS
+    assign {o_2LEDA, o_2LEDB} = {ctr[CLOCKBIT], ctr2[CLOCKBIT]};
 
     always @ (posedge i_clock)
     begin
