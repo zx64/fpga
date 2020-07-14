@@ -46,8 +46,8 @@ module top(
     assign {o_2LEDA, o_2LEDB} = o_flipframe[4:2];
 
     wire o_enable = (o_hsync_counter < HOR_FRONT_PORCH) && (o_vsync_counter < VER_FRONT_PORCH);
-    assign o_hsync = (o_hsync_counter > HOR_SYNC_PULSE) && (o_hsync_counter < HOR_BACK_PORCH);
-    assign o_vsync = (o_vsync_counter > VER_SYNC_PULSE) && (o_vsync_counter < VER_BACK_PORCH);
+    assign o_hsync = (o_hsync_counter < HOR_SYNC_PULSE) || (o_hsync_counter > HOR_SYNC_PULSE);
+    assign o_vsync = (o_vsync_counter < VER_SYNC_PULSE) || (o_vsync_counter > VER_SYNC_PULSE);
 
     assign o_red = o_enable;
     assign o_green = o_enable & (o_hsync_counter < 16'd400);
