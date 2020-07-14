@@ -2,11 +2,13 @@
 
 ## iceWerx
 * iCE40 HX8K cb132
+* 12MHz external clock
 * [Vendor](https://www.robot-electronics.co.uk/icewerx.html)
 * [Schematics](https://www.robot-electronics.co.uk/files/iceWerx.pdf)
 
 ## iceFun
 * iCE40 HX8K cb132
+* 12MHz external clock
 * [Vendor](https://www.robot-electronics.co.uk/icefun.html)
 * [Schematics](https://robot-electronics.co.uk/files/iceFUNdoc.pdf)
 
