@@ -1,0 +1,22 @@
+set_io i_clock     P7
+set_io i_btn_reset A11
+
+set_io o_led_y[0]   C10
+set_io o_led_y[1]   A10
+set_io o_led_y[2]   D7
+set_io o_led_y[3]   D6
+set_io o_led_y[4]   A7
+set_io o_led_y[5]   C7
+set_io o_led_y[6]   A4
+set_io o_led_y[7]   C4
+
+set_io o_led_x[3]   C5
+set_io o_led_x[2]   A6
+set_io o_led_x[1]   D10
+set_io o_led_x[0]   A12
+
+set_io o_hsync     A3
+set_io o_vsync     A2
+set_io o_red       C3
+set_io o_green     D3
+set_io o_blue      B1
