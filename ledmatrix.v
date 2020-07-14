@@ -1,4 +1,7 @@
 `default_nettype none
+`ifdef ICEWERX
+`error_unsupported_board
+`endif
 
 module LedMatrix(input i_clock,
     input  [7:0] i_row0,
