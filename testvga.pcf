@@ -3,3 +3,9 @@ set_io i_clock     P7
 set_io o_led_red   A5
 set_io o_led_green M4
 
+# Top left corner of the iceWerx board
+set_io o_hsync     A4
+set_io o_vsync     A3
+set_io o_red       A1
+set_io o_green     C3
+set_io o_blue      C1
