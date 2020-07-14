@@ -1,0 +1,31 @@
+set_io i_clock     P7
+
+set_io i_button[0] A11
+set_io i_button[1] A5
+set_io i_button[2] C11
+set_io i_button[3] C6
+
+set_io o_led_y[0]   C10
+set_io o_led_y[1]   A10
+set_io o_led_y[2]   D7
+set_io o_led_y[3]   D6
+set_io o_led_y[4]   A7
+set_io o_led_y[5]   C7
+set_io o_led_y[6]   A4
+set_io o_led_y[7]   C4
+
+set_io o_led_x[3]   C5
+set_io o_led_x[2]   A6
+set_io o_led_x[1]   D10
+set_io o_led_x[0]   A12
+
+set_io o_flash_cs  P13
+set_io i_flash_spi P11
+set_io o_flash_clock P12
+set_io o_flash_spi M11
+
+set_io o_adc_tx P4
+set_io i_adc_rx P5
+
+set_io o_speaker_pos M12
+set_io o_speaker_neg M6

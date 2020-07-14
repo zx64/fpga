@@ -1,0 +1,13 @@
+set_io i_clock     P7
+
+set_io o_led_red   A5
+set_io o_led_green M4
+
+set_io o_adc_tx    P4
+set_io i_adc_rx    P5
+
+set_io o_flash_cs  P13
+set_io i_flash_spi P11
+set_io o_flash_clock P12
+set_io o_flash_spi M11
+
