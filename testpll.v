@@ -1,14 +1,6 @@
 `default_nettype none
 `define ICEWERX
 
-module pll(
-        input  i_clock,
-        output o_clock,
-        output o_locked
-);
-
-endmodule
-
 module top(
     input i_clock,
 `ifdef ICEWERX
