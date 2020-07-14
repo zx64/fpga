@@ -29,7 +29,7 @@ echo ======== Done ========
 exit /b 0
 
 :usage
-echo Usage: %0 sourcefile.v
+echo Usage: %0 sourcefile.v [sourcefile.pcf]
 pause
 exit /b 1
 
