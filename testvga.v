@@ -151,8 +151,8 @@ module top(
     wire o_enable = (o_hsync_counter <= HOR_FRONT_PORCH) && (o_vsync_counter <= VER_FRONT_PORCH);
 
     assign o_red   = o_enable & ((o_hsync_counter < (2 * HBAR)) || (o_hsync_counter > (5 * HBAR)));
-    assign o_green = o_enable & (o_hsync_counter < (4 * HBAR)) && (o_hsync_counter > (1 * HBAR));
-    assign o_blue  = o_enable & (o_hsync_counter > (3 * HBAR));
+    assign o_green = o_enable &  (o_hsync_counter < (4 * HBAR)) && (o_hsync_counter > (1 * HBAR));
+    assign o_blue  = o_enable &  (o_hsync_counter > (3 * HBAR));
 
     always @ (posedge i_pixclock)
     begin
