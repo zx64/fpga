@@ -2,7 +2,7 @@
 //`define ICEWERX
 `include "2leds.v"
 
-`define VGA1600
+`define VGA800
 
 `ifdef VGA640
 // 25.125MHz
@@ -142,17 +142,21 @@ module top(
 
     parameter HBAR = `HPIX / 6;
 
-    reg [4:0] o_flipframe;
+    reg r_flipdir = 0;
+    reg [11:0] r_framecount;
 
-    assign {o_2LEDA, o_2LEDB} = o_flipframe[4:2];
+    assign {o_2LEDA, o_2LEDB} = r_framecount[4:2];
 
     assign o_hsync = ~(o_hsync_counter >= HOR_SYNC_PULSE && o_hsync_counter < HOR_BACK_PORCH);
     assign o_vsync = ~(o_vsync_counter >= VER_SYNC_PULSE && o_vsync_counter < VER_BACK_PORCH);
     wire o_enable = (o_hsync_counter <= HOR_FRONT_PORCH) && (o_vsync_counter <= VER_FRONT_PORCH);
 
-    assign o_red   = o_enable & ((o_hsync_counter < (2 * HBAR)) || (o_hsync_counter > (5 * HBAR)));
-    assign o_green = o_enable &  (o_hsync_counter < (4 * HBAR)) && (o_hsync_counter > (1 * HBAR));
-    assign o_blue  = o_enable &  (o_hsync_counter > (3 * HBAR));
+    reg [11:0] r_scroll = o_vsync_counter[7] ? (
+        o_vsync_counter[1] ? 3 * r_framecount : 2 * r_framecount
+    ): 0;
+    assign o_red   = o_enable & (o_hsync_counter >= r_scroll) && ((o_hsync_counter < (2 * HBAR + r_scroll)) || (o_hsync_counter > (5 * HBAR + r_scroll)));
+    assign o_green = o_enable &  (o_hsync_counter < (4 * HBAR + r_scroll)) && (o_hsync_counter > (1 * HBAR + r_scroll));
+    assign o_blue  = o_enable &  (o_hsync_counter > (3 * HBAR + r_scroll));
 
     always @ (posedge i_pixclock)
     begin
@@ -162,7 +166,20 @@ module top(
             if (o_vsync_counter == VER_MAX)
             begin
                 o_vsync_counter <= 0;
-                o_flipframe <= o_flipframe + 2'd1;
+                if (r_flipdir == 0)
+                begin
+                    if (r_framecount == HBAR)
+                        r_flipdir = 1;
+                    else
+                        r_framecount <= r_framecount + 1;
+                end
+                else
+                begin
+                    if (r_framecount == 0)
+                        r_flipdir = 0;
+                    else
+                        r_framecount <= r_framecount - 1;
+                end
             end
             else
             begin
@@ -177,6 +194,8 @@ module top(
         begin
             o_vsync_counter <= 0;
             o_hsync_counter <= 0;
+            r_framecount <= 0;
+            r_flipdir <= 0;
         end
     end
 endmodule
