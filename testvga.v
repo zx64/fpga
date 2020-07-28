@@ -2,7 +2,7 @@
 //`define ICEWERX
 `include "2leds.v"
 
-`define VGA1280
+`define VGA1600
 
 `ifdef VGA640
 // 25.125MHz
@@ -17,6 +17,7 @@
 `define VSP  2
 `define VBP  33
 `endif
+
 `ifdef VGA800
 // 39.75MHz
 `define CLKF 52
@@ -30,6 +31,7 @@
 `define VSP  4
 `define VBP  23
 `endif
+
 `ifdef VGA1024
 // 65.25MHz
 `define CLKF 86
@@ -43,6 +45,7 @@
 `define VSP  6
 `define VBP  29
 `endif
+
 `ifdef VGA1152
 // 81MHz
 `define CLKF 53
@@ -56,6 +59,7 @@
 `define VSP  3
 `define VBP  27
 `endif
+
 `ifdef VGA1280
 // 108MHz
 `define CLKF 71
@@ -68,6 +72,20 @@
 `define VFP  1
 `define VSP  3
 `define VBP  38
+`endif
+
+`ifdef VGA1600
+// 162MHz
+`define CLKF 53
+`define CLKQ 2
+`define HPIX 1600
+`define HFP  64
+`define HSP  192
+`define HBP  304
+`define VPIX 1200
+`define VFP  1
+`define VSP  3
+`define VBP  46
 `endif
 
 `ifndef HPIX
