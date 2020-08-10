@@ -88,6 +88,21 @@
 `define VBP  46
 `endif
 
+`ifdef VGA1920
+// 192MHz
+`define CLKF 63
+`define CLKQ 2
+`define HPIX 1920
+`define HFP  128
+`define HSP  208
+`define HBP  336
+`define VPIX 1200
+`define VFP  1
+`define VSP  3
+`define VBP  38
+`endif
+
+
 `ifndef HPIX
 `error No resolution set
 `endif
