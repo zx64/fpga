@@ -50,8 +50,8 @@ class ICE40HX8KiceWerxPlatform(LatticeICE40Platform):
     resources = _common_resources + [
         *LEDResources(pins="A5 M4", attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
         # Aliases
-        Resource("led_red", 0, Pins("A5", ir="i"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("led_green", 0, Pins("M4", ir="i"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_red", 0, Pins("A5", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_green", 0, Pins("M4", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS")),
     ]
 
     connectors = [
@@ -86,13 +86,13 @@ class ICE40HX8KiceFunPlatform(ICE40HX8KiceWerxPlatform):
         Resource(
             "led_matrix_x",
             0,
-            Pins("A12 D10 A6 C5", ir="o"),
+            Pins("A12 D10 A6 C5", dir="o"),
             Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
         Resource(
             "led_matrix_y",
             0,
-            Pins("C10 A10 D7 D6 A7 C7 A4 C4", ir="o"),
+            Pins("C10 A10 D7 D6 A7 C7 A4 C4", dir="o"),
             Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
         *ButtonResources(
@@ -104,7 +104,7 @@ class ICE40HX8KiceFunPlatform(ICE40HX8KiceWerxPlatform):
             0,
             Subsignal("p", Pins("M12", dir="o")),
             Subsignal("n", Pins("M6", dir="o")),
-        )
+        ),
         # Designed for 12V LED strips. 3A Max.
         # Must use the GND pin between P14 and N14!
         * LEDResources(
