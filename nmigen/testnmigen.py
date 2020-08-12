@@ -39,6 +39,7 @@ def testbench():
     with sim.write_vcd("notgate.vcd", "notgate.gtkw", traces=[unit.input, unit.output]):
         sim.run()
 
+
 if __name__ == "__main__":
     make_verilog()
     testbench()
