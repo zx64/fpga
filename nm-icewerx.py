@@ -90,17 +90,15 @@ class ICE40HX8KiceWerxPlatform(LatticeICE40Platform):
 class ICE40HX8KiceFunPlatform(ICE40HX8KiceWerxPlatform):
     resources = _common_resources + [
         Resource(
-            "led_matrix_x",
+            "led_matrix",
             0,
-            Pins("A12 D10 A6 C5", dir="o"),
-            Attrs(IO_STANDARD="SB_LVCMOS"),
+            Attrs(IO_STANDARD="SB_LVCMOS", invert=True),
+            # Drive low to light LED row
+            Subsignal("rows", Pins("A12 D10 A6 C5", dir="o")),
+            # Drive low to light LED
+            Subsignal("columns", Pins("C10 A10 D7 D6 A7 C7 A4 C4", dir="o")),
         ),
-        Resource(
-            "led_matrix_y",
-            0,
-            Pins("C10 A10 D7 D6 A7 C7 A4 C4", dir="o"),
-            Attrs(IO_STANDARD="SB_LVCMOS"),
-        ),
+        # Onboard pullup resistors, low when pressed
         *ButtonResources(pins="A11 A5 C11 C6", attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
         # Piezo speaker
         Resource(
@@ -108,6 +106,7 @@ class ICE40HX8KiceFunPlatform(ICE40HX8KiceWerxPlatform):
             0,
             Subsignal("p", Pins("M12", dir="o")),
             Subsignal("n", Pins("M6", dir="o")),
+            Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
         # Designed for 12V LED strips. 3A Max.
         # Must use the GND pin between P14 and N14!
