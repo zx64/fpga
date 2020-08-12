@@ -4,4 +4,4 @@
 *.json
 *.vcd
 abc.history
-build/*
+nmigen/build/*
