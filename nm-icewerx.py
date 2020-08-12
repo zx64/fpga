@@ -95,9 +95,7 @@ class ICE40HX8KiceFunPlatform(ICE40HX8KiceWerxPlatform):
             Pins("C10 A10 D7 D6 A7 C7 A4 C4", dir="o"),
             Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
-        *ButtonResources(
-            pins="A11 A5 C11 C6", attrs=Attrs(IO_STANDARD="SB_LVCMOS", PULLMODE="DOWN"),
-        ),
+        *ButtonResources(pins="A11 A5 C11 C6", attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
         # Piezo speaker
         Resource(
             "audio",
@@ -107,7 +105,7 @@ class ICE40HX8KiceFunPlatform(ICE40HX8KiceWerxPlatform):
         ),
         # Designed for 12V LED strips. 3A Max.
         # Must use the GND pin between P14 and N14!
-        * LEDResources(
+        *LEDResources(
             "high_current_leds",
             pins="L14 N14 P14",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS"),
