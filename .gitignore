@@ -1,5 +1,6 @@
 *.asc
 *.bin
-*.vcd
+*.gtkw
 *.json
+*.vcd
 abc.history
