@@ -11,6 +11,7 @@ from .resources import *
 __all__ = ["ICE40HX8KiceWerxPlatform", "ICE40HX8KiceFunPlatform"]
 
 _common_resources = [
+    # GBIN5
     Resource(
         "clk12",
         0,
@@ -18,10 +19,18 @@ _common_resources = [
         Clock(12e6),
         Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS"),
     ),
-    # Connected to the onboard PIC's ADC
+    # Connected to the onboard PIC's 10 bit ADC
+    # 250k baud, 1 start, 8 data, 1 stop, no parity
+    # To read ADx on iceWerx, send byte:
+    # AD1 - 0xA1, AD2 - 0xA2, AD3 - 0xA3, AD4 - 0xA4
+    # On iceFun:
+    # AD1 - 0xA2, AD2 - 0xA1, AD3 - 0xA3, AD4 - 0xA4
+    # Receive 2 bytes, high byte first. Combine for 10 bit right justified result.
     UARTResource(
         "adc", 0, rx="P5", tx="P4", attrs=Attrs(IO_STANDARD="SB_LVCMOS"), role="adc"
     ),
+    # 1MB SPI Flash
+    # First three 64k sectors reserved for FPGA configuration
     *SPIFlashResources(
         0,
         cs="P13",
@@ -46,8 +55,8 @@ class ICE40HX8KiceWerxPlatform(LatticeICE40Platform):
     ]
 
     connectors = [
-        Connector("J2", 0, "A4 A3 A1 C3 C1 E1 G1 H1 J1 K3 M1 M3 P2 P3 M6 M7 AD4 AD3"),
-        Connector("J2", 1, "C5 C4 A2 B1 D3 D1 F3 G3 H3 J3 L1 N1 P1 AD1 - - -"),
+        Connector("J2", 0, "A4 A3 A1 C3 C1 E1 G1 H1 J1 K3 M1 M3 P2 P3 M6 M7 - -"),
+        Connector("J2", 1, "C5 C4 A2 B1 D3 D1 F3 G3 H3 J3 L1 N1 P1 - - - -"),
         Connector(
             "J3",
             0,
@@ -107,14 +116,14 @@ class ICE40HX8KiceFunPlatform(ICE40HX8KiceWerxPlatform):
 
     connectors = [
         Connector(
-            "gpio",
+            "PL2",
             0,
-            "A3 A2 A1 C3 D3 B1 C1 D1 E1 F3 G3 H3 J3 K3 M3 G1 H1 J1 L1 M1 N1 P1 P2 P3 AD1 Ad2 - - -",
+            "A3 A2 A1 C3 D3 B1 C1 D1 E1 F3 G3 H3 J3 K3 M3 G1 H1 J1 L1 M1 N1 P1 P2 P3 - - - - -",
         ),
         Connector(
-            "gpio",
+            "PL2",
             1,
-            "B14 C12 C14 D12 D14 E12 E14 F12 F14 G12 G14 H12 J12 K12 K14 H11 L12 L14 N14 - P14 P10 M9 P9 P8 AD4 AD3 - -",
+            "B14 C12 C14 D12 D14 E12 E14 F12 F14 G12 G14 H12 J12 K12 K14 H11 L12 L14 N14 - P14 P10 M9 P9 P8 - - - -",
         ),
     ]
 
