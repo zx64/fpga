@@ -8,9 +8,15 @@ class TestMatrix(nm.Elaboratable):
         clk_freq = platform.default_clk_frequency
         speed = int(clk_freq // (1 << 4))
         frame_counter = nm.Signal(range(speed), reset=speed - 1)
-        step = nm.Signal(range(8))
+        stepctr = nm.Signal(4)
+        step = nm.Signal(3)
 
         matrix = m.submodules.matrix = LEDMatrix(4, 8, clk_freq)
+
+        with m.If(stepctr >= 8):
+            m.d.comb += step.eq(7 - stepctr[0:3])
+        with m.Else():
+            m.d.comb += step.eq(stepctr)
 
         m.d.comb += [
             matrix.columns[0].eq(1 << step),
@@ -20,7 +26,7 @@ class TestMatrix(nm.Elaboratable):
         ]
 
         with m.If(frame_counter == 0):
-            m.d.sync += [step.eq(step + 1), frame_counter.eq(frame_counter.reset)]
+            m.d.sync += [stepctr.eq(stepctr + 1), frame_counter.eq(frame_counter.reset)]
         with m.Else():
             m.d.sync += [frame_counter.eq(frame_counter - 1)]
         return m
