@@ -1,11 +1,13 @@
 import nmigen as nm
 
+from ledmatrix import LEDMatrix
+
 class TestMatrix(nm.Elaboratable):
     def elaborate(self, platform):
         m = nm.Module()
-        matrix = platform.request("led_matrix", 0)
-        cols = matrix.columns
-        rows = matrix.rows
+        m.submodules.matrix = matrix = LEDMatrix(4, 8)
+        cols = matrix.cols_enabled
+        rows = matrix.rows_enabled
         clk_freq = platform.default_clk_frequency
         timer = nm.Signal(range(int(clk_freq//2)), reset=int(clk_freq//2) - 1)
         cactive = nm.Signal(range(len(cols)))
