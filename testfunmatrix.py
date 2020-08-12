@@ -1,35 +1,33 @@
 import nmigen as nm
-
 from ledmatrix import LEDMatrix
+
 
 class TestMatrix(nm.Elaboratable):
     def elaborate(self, platform):
         m = nm.Module()
-        m.submodules.matrix = matrix = LEDMatrix(4, 8)
-        cols = matrix.cols_enabled
-        rows = matrix.rows_enabled
         clk_freq = platform.default_clk_frequency
-        timer = nm.Signal(range(int(clk_freq//2)), reset=int(clk_freq//2) - 1)
-        cactive = nm.Signal(range(len(cols)))
-        ractive = nm.Signal(range(len(rows)))
+        speed = int(clk_freq // (1 << 4))
+        frame_counter = nm.Signal(range(speed), reset=speed - 1)
+        step = nm.Signal(range(8))
+
+        matrix = m.submodules.matrix = LEDMatrix(4, 8, clk_freq)
 
         m.d.comb += [
-            nm.Cat(cols).eq(cactive),
-            nm.Cat(rows).eq(ractive)
+            matrix.columns[0].eq(1 << step),
+            matrix.columns[1].eq(1 << step | 2 << step),
+            matrix.columns[2].eq(~0 ^ 4 << step),
+            matrix.columns[3].eq(~0 ^ (1 << step | 8 << step)),
         ]
-        with m.If(timer == 0):
-            m.d.sync += [
-                timer.eq(timer.reset),
-                cactive.eq(cactive + 1),
-                ractive.eq(ractive + 1)
-            ]
-        with m.Else():
-            m.d.sync += timer.eq(timer - 1)
 
+        with m.If(frame_counter == 0):
+            m.d.sync += [step.eq(step + 1), frame_counter.eq(frame_counter.reset)]
+        with m.Else():
+            m.d.sync += [frame_counter.eq(frame_counter - 1)]
         return m
 
 
 if __name__ == "__main__":
     from nmigen_boards.icewerx import ICE40HX8KiceFunPlatform
+
     platform = ICE40HX8KiceFunPlatform()
     platform.build(TestMatrix(), do_program=True)
