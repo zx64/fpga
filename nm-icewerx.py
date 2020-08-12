@@ -7,7 +7,11 @@ from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
 from .resources import *
 
+# Schematics:
+# https://www.robot-electronics.co.uk/files/iceWerx.pdf
+# https://robot-electronics.co.uk/files/iceFUNdoc.pdf
 
+# TODO: Test active low settings
 # TODO: iceFUN's LED Matrix is not exercised by Blinky
 
 __all__ = ["ICE40HX8KiceWerxPlatform", "ICE40HX8KiceFunPlatform"]
