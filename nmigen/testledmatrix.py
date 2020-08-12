@@ -27,7 +27,7 @@ class TestMatrix(nm.Elaboratable):
 
 
 if __name__ == "__main__":
-    from nmigen_boards.icewerx import ICE40HX8KiceFunPlatform
+    from icewerx import ICE40HX8KiceFunPlatform
 
     platform = ICE40HX8KiceFunPlatform()
     platform.build(TestMatrix(), do_program=True)

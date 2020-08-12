@@ -5,7 +5,7 @@ import sys
 
 from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
-from .resources import *
+from nmigen_boards.resources import *
 
 # Schematics:
 # https://www.robot-electronics.co.uk/files/iceWerx.pdf
@@ -134,7 +134,7 @@ class ICE40HX8KiceFunPlatform(ICE40HX8KiceWerxPlatform):
 
 
 if __name__ == "__main__":
-    from .test.blinky import *
+    from nmigen_boards.test.blinky import *
 
     variants = {
         "icewerx": ICE40HX8KiceWerxPlatform,

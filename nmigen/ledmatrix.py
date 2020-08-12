@@ -34,7 +34,7 @@ class LEDMatrix(nm.Elaboratable):
 
 
 if __name__ == "__main__":
-    from nmigen_boards.icewerx import ICE40HX8KiceFunPlatform
+    from icewerx import ICE40HX8KiceFunPlatform
 
     platform = ICE40HX8KiceFunPlatform()
     matrix = LEDMatrix(4, 8, platform.default_clk_frequency)
