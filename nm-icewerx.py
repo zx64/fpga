@@ -92,11 +92,13 @@ class ICE40HX8KiceFunPlatform(ICE40HX8KiceWerxPlatform):
         Resource(
             "led_matrix",
             0,
-            Attrs(IO_STANDARD="SB_LVCMOS", invert=True),
+            Attrs(IO_STANDARD="SB_LVCMOS"),
             # Drive low to light LED row
-            Subsignal("rows", Pins("A12 D10 A6 C5", dir="o")),
+            Subsignal("rows", Pins("A12 D10 A6 C5", dir="o", invert=True)),
             # Drive low to light LED
-            Subsignal("columns", Pins("C10 A10 D7 D6 A7 C7 A4 C4", dir="o")),
+            Subsignal(
+                "columns", Pins("C10 A10 D7 D6 A7 C7 A4 C4", dir="o", invert=True)
+            ),
         ),
         # Onboard pullup resistors, low when pressed
         *ButtonResources(pins="A11 A5 C11 C6", attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
