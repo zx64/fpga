@@ -8,6 +8,8 @@ from nmigen.vendor.lattice_ice40 import *
 from .resources import *
 
 
+# TODO: iceFUN's LED Matrix is not exercised by Blinky
+
 __all__ = ["ICE40HX8KiceWerxPlatform", "ICE40HX8KiceFunPlatform"]
 
 _common_resources = [
