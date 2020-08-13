@@ -12,11 +12,21 @@ if (Test-Path .\fpga-toolchain\VERSION) {
 }
 
 Write-Progress "Downloading $OTFArchive..."
-curl.exe -LO $OTFURL
+curl.exe --location --remote-name $OTFURL
 if (!$?) {
-    Write-Error Download failed.
+    Write-Error "Download of $OTFURL failed."
     Exit 1
 }
+
+$Check = [IO.File]::OpenRead($OTFArchive)
+if (($Check.ReadByte() -ne 55) -or ($Check.ReadByte() -ne 122)) {
+    $Check.Close()
+    Remove-Item $OTFArchive
+    Write-Error "Download of $OTFURL does not look like a 7z file."
+    Exit 1
+}
+$Check.Close()
+
 
 if (Test-Path fpga-toolchain) {
     Rename-Item fpga-toolchain fpga-toolchain.old
