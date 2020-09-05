@@ -1,3 +1,6 @@
+$host.PrivateData.ProgressBackgroundColor = "DarkGreen"
+$host.PrivateData.ProgressForegroundColor = "White"
+
 $OTFDate = Get-Date -UFormat "%Y%m%d"
 $OTFVer = "nightly-$OTFDate"
 $OTFArchive = "fpga-toolchain-windows_amd64-$OTFVer.7z"
