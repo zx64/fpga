@@ -5,7 +5,6 @@ call :check 7z.exe || goto error
 call :check curl.exe || goto error
 cd /d %~dp0
 pwsh.exe -NonInteractive -NoLogo -NoProfile .\update.ps1
-pause
 exit /b 0
 
 :check
