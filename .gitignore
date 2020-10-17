@@ -1,8 +1,10 @@
 *.asc
 *.bin
+*.bit
+*.config
 *.gtkw
 *.json
 *.vcd
+__pycache__*
 abc.history
 nmigen/build/*
-__pycache__*
