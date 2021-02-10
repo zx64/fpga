@@ -29,7 +29,7 @@ function Get-OTFArchive {
     $version = Get-OTFVer $Date
     Write-Host Attempting to get $version
     $archive = "fpga-toolchain-windows_amd64-$version.7z"
-    $url = "https://github.com/open-tool-forge/fpga-toolchain/releases/download/$version/$archive"
+    $url = "https://github.com/YosysHQ/fpga-toolchain/releases/download/$version/$archive"
     $filename = "{0}\$archive" -f (Get-Location)
 
     Write-Progress "Downloading $archive..."
