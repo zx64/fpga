@@ -1,6 +1,4 @@
 $ErrorActionPreference = "Stop"
-$host.PrivateData.ProgressBackgroundColor = "DarkGreen"
-$host.PrivateData.ProgressForegroundColor = "White"
 
 function Get-OTFVer {
     param (
